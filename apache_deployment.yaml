@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment                                          
+metadata:
+  name: apache
+  labels:
+    app: apache
+    runon: fargate
+spec:
+  selector:
+    matchLabels:
+      app: apache
+  replicas: 3                                             
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate                                   
+    rollingUpdate: 
+      maxUnavailable: 1                                   
+      maxSurge: 1                                         
+  template:
+    metadata:
+      labels:
+        runon: fargate
+        app: apache                                  
+        app.kubernetes.io/name: apache
+    spec:
+      containers:
+        - image: basilvarghese/myapp_frontend_jenkins:latest
+          imagePullPolicy: Always                         
+          name: coit-frontend
+          ports:
+            - containerPort: 80
+          env:
+            - name: DATABASE_NAME
+              value: mydb
