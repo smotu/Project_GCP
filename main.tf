@@ -60,13 +60,13 @@ resource "kubernetes_deployment" "apache" {
     replicas = 2
     selector {
       match_labels = {
-        App = ""apache""
+        App = "apache"
       }
     }
     template {
       metadata {
         labels = {
-          App = ""apache""
+          App = "apache"
         }
       }
       spec {
@@ -110,4 +110,4 @@ resource "kubernetes_service" "apache-lb" {
 
     type = "LoadBalancer"
   }
-
+}
