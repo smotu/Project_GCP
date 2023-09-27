@@ -24,7 +24,7 @@ spec:
         app.kubernetes.io/name: apache
     spec:
       containers:
-        - image: basilvarghese/myapp_frontend_jenkins:latest
+        - image: mishras95/apache:test
           imagePullPolicy: Always                         
           name: coit-frontend
           ports:

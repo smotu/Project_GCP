@@ -1,0 +1,46 @@
+resource "kubernetes_deployment" "apache" {
+  metadata {
+    name = "apache"
+    labels = {
+      App = "apache"
+    }
+  }
+
+  spec {
+    replicas = 2
+    selector {
+      match_labels = {
+        App = ""apache""
+      }
+    }
+    template {
+      metadata {
+        labels = {
+          App = ""apache""
+        }
+      }
+      spec {
+        container {
+          image = "mishras95/apache:test"
+          name  = "apache"
+
+          port {
+            container_port = 80
+          }
+
+          resources {
+            limits = {
+              cpu    = "0.5"
+              memory = "512Mi"
+            }
+            requests = {
+              cpu    = "250m"
+              memory = "50Mi"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
